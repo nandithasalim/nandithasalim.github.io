@@ -504,7 +504,57 @@
           </div>
         </div>
       </li>
+      <li>
+  <div class="prow">
+    <span class="pnum">02</span>
+    <span class="ptitle">MCP Reliability Checker</span>
+    <span class="pstat"><b>53%</b><span>avg. reliability</span></span>
+    <span class="ptag">AI Infrastructure</span>
+    <span class="pyear">2026</span>
+    <span class="pdot" style="background:var(--brand)"></span>
+  </div>
 
+  <div class="pbody">
+    <p class="pblurb">
+      An automated testing framework for MCP servers that stress-tests protocol behavior, failure handling, and reliability across real-world edge cases.
+    </p>
+
+    <dl class="facts">
+      <div class="fact">
+        <dt>PROBLEM</dt>
+        <dd>
+          MCP servers can behave unpredictably when they receive invalid, malformed, or unexpected inputs. Existing testing is largely ad hoc, making it difficult to distinguish correctly handled failures from silent or catastrophic ones.
+        </dd>
+      </div>
+
+      <div class="fact">
+        <dt>BUILT</dt>
+        <dd>
+          An asynchronous Python/FastMCP testing framework that concurrently executes 33 standardized valid and adversarial tests across 14 public MCP servers using asyncio. Designed a 3-tier reliability scoring system to classify protocol-compliant errors, exception-based failures, and silent failures, with automated JSON and HTML reporting.
+        </dd>
+      </div>
+
+      <div class="fact impact">
+        <dt>IMPACT</dt>
+        <dd>
+          Revealed ~53% average reliability across the tested MCP servers and identified 3 server startup failures, including 2 reproducible upstream API/dependency bugs. Generated a ranked reliability leaderboard with detailed per-test results.
+        </dd>
+      </div>
+    </dl>
+
+    <div class="chips">
+      <span>Python</span>
+      <span>FastMCP</span>
+      <span>MCP</span>
+      <span>asyncio</span>
+      <span>JSON</span>
+    </div>
+
+    <div class="plinks">
+      <a class="muted" href="https://github.com/nandithasalim/mcp-reliability-checker" target="_blank" rel="noopener">SOURCE &#8599;</a>
+    </div>
+  </div>
+</li>
       <li>
         <div class="prow">
           <span class="pnum">02</span>
