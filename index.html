@@ -577,7 +577,42 @@
           </div>
         </div>
       </li>
-
+            <li>
+        <div class="prow">
+          <span class="pnum">07</span>
+          <span class="ptitle">OpenLLMetry</span>
+          <span class="ptag">Open Source</span>
+          <span class="pyear">2026</span>
+          <span class="pdot" style="background:var(--ink)"></span>
+        </div>
+        <div class="pbody">
+          <p class="pblurb">An upstream tracing-safety fix to the open-source LLM observability library built on OpenTelemetry, so instrumentation can no longer crash a streaming response.</p>
+          <dl class="facts">
+            <div class="fact"><dt>PROBLEM</dt><dd>The <code>@dont_throw</code> decorator exists to guarantee that instrumentation never breaks the host application, but it failed to protect the OpenAI streaming instrumentation&rsquo;s generator functions. A tracing error could crash a response mid-stream in production.</dd></div>
+            <div class="fact"><dt>BUILT</dt><dd>Found the gap while instrumenting my own agent pipelines, fixed it so the generator functions are covered, and added a regression test. Submitted upstream to the maintainers as PR #4485 rather than patching around it locally.</dd></div>
+            <div class="fact impact"><dt>IMPACT</dt><dd>Tracing failures no longer put a live streaming response at risk, in a library used across the GenAI observability ecosystem.</dd></div>
+          </dl>
+          <div class="chips"><span>Python</span><span>OpenTelemetry</span><span>Observability</span><span>Testing</span></div>
+        </div>
+      </li>
+            <li>
+        <div class="prow">
+          <span class="pnum">08</span>
+          <span class="ptitle">Audit &amp; Analyse</span>
+          <span class="ptag">AI Agents</span>
+          <span class="pyear">2026</span>
+          <span class="pdot" style="background:var(--brand-dark)"></span>
+        </div>
+        <div class="pbody">
+          <p class="pblurb">A two-agent research pipeline: an analyst that answers questions with cited web research, and an independent auditor that checks every claim against the page it cites.</p>
+          <dl class="facts">
+            <div class="fact"><dt>PROBLEM</dt><dd>Research agents give confident answers with citations that often don&rsquo;t actually support the claim. Trusting them means verifying each claim independently, without the cost of the pipeline becoming unpredictable.</dd></div>
+            <div class="fact"><dt>BUILT</dt><dd>An analyst that plans, runs web retrieval in parallel, ranks evidence with embeddings and synthesizes cited claims, with a SQLite fact-graph memory that carries entities across questions. An auditor that never sees the analyst&rsquo;s reasoning: it re-fetches each cited page and returns one of five verdicts (supported, unsupported, contradicted, no citation, unverifiable). A bounded single-pass repair for flagged claims, model tiering by task, source-trust tiering, and per-stage cost logging.</dd></div>
+            <div class="fact impact"><dt>IMPACT</dt><dd>Ran end to end on 8 questions of rising difficulty for $5.30 total, with memory reuse growing to 9 facts by the last question. Traced &ldquo;unsupported&rdquo; verdicts to two root causes, not hallucination: dates that live outside the cited page&rsquo;s body, and the analyst&rsquo;s own reasoning being audited as if it were a fact. Fixed three real bugs the live run exposed (cost accounting, embedding batch limits, chunk splitting).</dd></div>
+          </dl>
+          <div class="chips"><span>Python</span><span>OpenAI API</span><span>Embeddings</span><span>SQLite FTS5</span><span>scikit-learn</span><span>BeautifulSoup</span></div>
+        </div>
+      </li>
       <li>
         <div class="prow">
           <span class="pnum">03</span>
@@ -663,7 +698,24 @@
           <div class="chips"><span>Python</span><span>YOLOv6</span><span>FastAPI</span><span>WebSockets</span><span>React.js</span><span>Leaflet.js</span></div>
         </div>
       </li>
-
+            <li>
+        <div class="prow">
+          <span class="pnum">09</span>
+          <span class="ptitle">Ask the Data</span>
+          <span class="ptag">NL-to-SQL &middot; AI Engineering</span>
+          <span class="pyear">2026</span>
+          <span class="pdot" style="background:var(--ink)"></span>
+        </div>
+        <div class="pbody">
+          <p class="pblurb">A natural-language-to-SQL system that lets stakeholders ask questions about a database in plain English, with the generated SQL validated and run read-only.</p>
+          <dl class="facts">
+            <div class="fact"><dt>PROBLEM</dt><dd>Business users can&rsquo;t write SQL, and the database uses cryptic names (<code>table1.field10</code>) that an LLM can&rsquo;t interpret. Letting a model write queries directly against live data also risks wrong answers and unsafe statements.</dd></div>
+            <div class="fact"><dt>BUILT</dt><dd>A catalog that turns schema comments into readable names (<code>companies.status</code>), so the LLM only ever sees meaningful names and real data values. Hybrid retrieval picks the relevant tables, combining HNSW embeddings with SQLite FTS5/BM25 via Reciprocal Rank Fusion. A foreign-key join graph with BFS shortest paths supplies exact join conditions. A <code>sqlglot</code> validator, with no LLM involved, enforces single read-only queries, checks that every table, column and value exists, and translates names back to the physical schema. Queries run read-only (SELECT-only user, read-only transaction, 5-second timeout) with a bounded retry loop that feeds fixable errors back to the model. Served through a CLI and a FastAPI web page, on SQLite or MySQL.</dd></div>
+            <div class="fact impact"><dt>IMPACT</dt><dd>Plain-English questions become safe, explainable SQL, with the query, assumptions and warnings shown next to the result. The validation and retry layers are covered by 18 offline tests that need no API key.</dd></div>
+          </dl>
+          <div class="chips"><span>Python</span><span>FastAPI</span><span>sqlglot</span><span>HNSW</span><span>SQLite FTS5</span><span>MySQL</span><span>OpenAI / Anthropic APIs</span></div>
+        </div>
+      </li>
       <li>
         <div class="prow">
           <span class="pnum">07</span>
